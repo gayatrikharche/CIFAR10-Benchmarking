@@ -60,14 +60,6 @@ The script defines and trains a Residual Neural Network (ResNet) using PyTorch. 
 3. **Testing Function:** The test function evaluates the model on the test dataset.
 4. **Main Function:** The main function parses command-line arguments, sets up data loaders, initializes the model and optimizer, and runs the training and testing processes.
 
-### **Workflow for Training a ResNet on CIFAR-10:**
-
-1. **Data Preparation:** The CIFAR-10 dataset is downloaded, extracted, and organized into the `data` directory.
-2. **Model Initialization:** The ResNet model is defined and initialized.
-3. **Training:** The model is trained on the CIFAR-10 dataset, with the training process managed by the PyTorch script and orchestrated by the wrapper script.
-4. **Evaluation:** The model is evaluated on the test dataset to assess its performance.
-5. **Cleanup:** The data directory is deleted after training to free up storage space.
-
 ### **Job Submission and Resource Management:**
 
 HTCondor manages the job submission (condor_sumbit), ensuring the necessary files and resources are available on the compute node. It handles file transfers, specifies resource requirements, and monitors the job's execution. Logs are generated to capture the job’s progress, output, and errors, aiding in debugging and monitoring the training process.
