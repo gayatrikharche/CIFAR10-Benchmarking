@@ -1,0 +1,30 @@
+# Specify the Singularity image to use
++SingularityImage = "osdf:///ospool/uc-shared/public/OSG-Staff/pytorch-2.1.1.sif"
+
+# Set the log, error, and output files
+log = cifar10_resnet.log.txt
+error = cifar10_resnet.err.txt
+output = cifar10_resnet.out.txt
+
+# Set the executable to run
+executable = cifar10_resnet-3.sh
+arguments = $(Process)
+
+# Transfer the Python script and CIFAR-10 data directory to the compute node using the OSDF protocol
+transfer_input_files = cifar10-Resnet-3.py, osdf:///nrp/osdf/cifar-10/cifar-10-python.tar.gz
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+
+# We require a machine with a compatible version of the CUDA driver
+require_gpus = (DriverVersion >= 10.1)
+
+# We must request 2 CPU in addition to 1 GPU
+request_cpus = 2
+request_gpus = 1
+
+# Select some memory and disk space
+request_memory = 3GB
+request_disk = 5GB
+
+# Tell HTCondor to run 1 instance of our job
+queue 1
