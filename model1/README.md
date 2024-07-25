@@ -6,29 +6,30 @@ This document outlines the process for using Method 1 to train a ResNet architec
 
 ## **1. Data Access and Processing**
 
-### **Data Acquisition**
+### **Data Flow and Acquisition**
 
-The CIFAR-10 dataset is obtained from the Open Science Data Federation (OSDF) via a Python script that sends an HTTP GET request. An authorization token is used for authentication, and the dataset is downloaded as a compressed `.tar.gz` file.
+The CIFAR-10 dataset is obtained from the Open Science Data Federation (OSDF) via a Python script that sends an HTTP GET request. An authorization token is used for authentication, and the dataset is downloaded as a compressed `.tar.gz` file. The following steps outline the entire data flow:
 
-### **Steps:**
+1. **Data Acquisition:** 
+    - Download the CIFAR-10 dataset from OSDF using an HTTP GET request.
+    - The dataset is saved locally on the compute node as a `.tar.gz` file.
 
-1. **Data Acquisition:** Download the CIFAR-10 dataset from OSDF using an HTTP GET request.
-2. **Data Extraction:** The dataset is saved locally on the compute node and extracted using a wrapper script. The tarball is decompressed, and the files are organized into a directory named `data`.
-3. **Model Training:** The extracted dataset is used to train a ResNet model. The wrapper script manages the training process by running the PyTorch model script.
-4. **Cleanup:** After the model training is complete, the wrapper script removes the `data` directory to free up storage space on the compute node.
+2. **Data Extraction:** 
+    - The wrapper script extracts the tarball and populates a directory named `data` with the dataset files.
 
-## **2. Data Flow**
+3. **Model Training:** 
+    - The PyTorch model script is executed to train the ResNet model using the CIFAR-10 dataset.
 
-### **Data Flow:**
+4. **Cleanup:** 
+    - After training, the wrapper script deletes the `data` directory to free up storage space on the compute node.
 
-1. **Data Acquisition:** The CIFAR-10 dataset is downloaded from OSDF as a `.tar.gz` file.
-2. **Data Extraction:** The wrapper script extracts the tarball and populates the `data` directory with the dataset files.
-3. **Model Training:** The PyTorch model script is executed to train the ResNet model using the CIFAR-10 dataset.
-4. **Cleanup:** Post-training, the `data` directory is deleted to clear up storage space on the compute node.
-5. **Job Submission and Resource Management:** HTCondor manages the job submission, specifying the required resources and handling file transfers. It ensures the necessary files are available on the compute node and manages the execution of the PyTorch script.
-6. **Execution Monitoring:** Logs are generated during execution to capture the job’s progress, output, and errors, aiding in debugging and monitoring.
+5. **Job Submission and Resource Management:** 
+    - HTCondor manages the job submission, specifying the required resources and handling file transfers. It ensures the necessary files are available on the compute node and manages the execution of the PyTorch script.
 
-## **3. Wrapper Script**
+6. **Execution Monitoring:** 
+    - Logs are generated during execution to capture the job’s progress, output, and errors, aiding in debugging and monitoring.
+
+## **2. Wrapper Script**
 
 The wrapper script orchestrates the data preparation and model training process. It performs the following tasks:
 
@@ -36,7 +37,7 @@ The wrapper script orchestrates the data preparation and model training process.
 2. **Run Model Training:** Executes the PyTorch model script to train the ResNet model on the extracted dataset.
 3. **Cleanup:** Deletes the `data` directory after training to reclaim storage space.
 
-## **4. HTCondor Submit File**
+## **3. HTCondor Submit File**
 
 The HTCondor submit file configures the job submission process and includes:
 
@@ -47,7 +48,7 @@ The HTCondor submit file configures the job submission process and includes:
 5. **Resource Requests:** Requests computational resources such as CPUs, GPUs, memory, and disk space.
 6. **Job Execution:** Ensures that the job is executed with the specified resources and that all necessary files are available on the compute node.
 
-## **5. PyTorch Script**
+## **4. PyTorch Script**
 
 The PyTorch script (cifar10_resnet.py) implements a ResNet architecture for training on the CIFAR-10 dataset. Below is a description of the script:
 
