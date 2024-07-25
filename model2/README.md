@@ -33,7 +33,6 @@ In Method 2, the CIFAR-10 dataset is fetched directly from OSDF using an HTTP GE
 The wrapper script is responsible for managing the following tasks:
 
 1. **Run Model Training:** : Executes the PyTorch model script to train the ResNet model using the dataset fetched directly from OSDF.
-
 2. **Cleanup:** : Handles post-training cleanup by removing any temporary files or data to reclaim storage space.
 
 ### **3. HTCondor Submit File**
@@ -41,17 +40,11 @@ The wrapper script is responsible for managing the following tasks:
 The HTCondor submit file is configured to manage job submission and includes:
 
 1. **Singularity Image:** Specifies the use of a Singularity container image that contains the required PyTorch environment.
-
 2. **Log Files:** Defines paths for log, error, and output files where the job's execution details are recorded.
-
 3. **Executable and Arguments:** Sets the executable (wrapper script) and its arguments.
-
 4. **File Transfers:** Manages the transfer of essential files, including the Python script and dataset, to the compute node.
-
 5. **Resource Requests:** Requests computational resources such as CPUs, GPUs, memory, and disk space to ensure the job runs effectively.
-
 6. **GPU Requirement:** Ensures that the compute node has a compatible CUDA driver for GPU support.
-
 7. **Job Execution:** Configures HTCondor to execute the job with the specified resources and to manage file transfers appropriately.
 
 ### **4. PyTorch Script**
@@ -59,11 +52,8 @@ The HTCondor submit file is configured to manage job submission and includes:
 The PyTorch script (cifar10_resnet.py) implements a ResNet architecture for training on the CIFAR-10 dataset. The script includes:
 
 1. **Model Definition:** Defines the ResNet architecture with convolutional layers and residual blocks.
-
 2. **Training Function:** Manages the training of the model using the provided data loader and optimizer.
-
 3. **Testing Function:** Evaluates the model's performance on the test dataset.
-
 4. **Main Function:** Handles command-line argument parsing, data loader setup, model and optimizer initialization, and the execution of training and testing processes.
 
 ### **5. Job Submission and Resource Management**
