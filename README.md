@@ -1,4 +1,4 @@
-# CIFAR-10 Benchmarking: Data Access Methods
+# CIFAR-10 Benchmarking: Data Access Methods on OSG(Open Sciemce Grid)
 
 This document describes three methods for benchmarking CIFAR-10 dataset training using PyTorch. Each method involves different strategies for data access and management, leveraging HTCondor for job submission and resource management.
 
